@@ -1,10 +1,13 @@
 --!nonstrict
 
 if _G.Slib then
-	if _G.Slib.GUI and _G.Slib.Script then
-		_G.Slib:Destroy()
-		_G.Slib = nil
+	if _G.Slib.GUI then
+		_G.Slib.GUI:Destroy()
 	end
+	if _G.Slib.Script then
+		_G.Slib.Script:Destroy()
+	end
+	_G.Slib = nil
 end
 
 _G.Slib = {
@@ -49,7 +52,7 @@ local function randomString()
 	return table.concat(array)
 end
 
-Services = setmetatable({}, {
+local Services = setmetatable({}, {
 	__index = function(self, name)
 		local success, cache = pcall(function()
 			return cloneref(game:GetService(name))
@@ -86,7 +89,7 @@ function Slib.Init(Name:string, Location:Vector2, Properties: {[string]: any}?)
 		Position = UDim2.fromOffset(Location.X, Location.Y),
 		Name = randomString(),
 		Size = UDim2.fromScale(0.3, 0.6),
-		BackgroundColor3 = Properties and Properties.BG or Color3.fromRGB(72, 72, 72)
+		BackgroundColor3 = (Properties and Properties.BG) or Color3.fromRGB(72, 72, 72)
 	})
 	Make("UICorner", Frame1, {Name = randomString(),
 		CornerRadius = Properties and Properties.CornerRadius or UDim.new(0.1, 0)})
