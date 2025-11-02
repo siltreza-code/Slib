@@ -96,7 +96,7 @@ function Slib.Init(Name:string, Location:Vector2, Properties: {[string]: any}?)
 	local TopBar = Make("Frame", Frame1, {BackgroundColor3 = (Properties and Properties.TopColor) or Color3.fromRGB(105, 105, 105),
 		Name = randomString(), Size = UDim2.fromScale(1, 0.1), Position = UDim2.fromScale(0, 0)})
 	Make("TextLabel", TopBar, {BackgroundTransparency = 1, TextScaled = true, Size = UDim2.fromScale(0.9, 0.8),
-			Name = randomString(), Text = Name, FontFace = (Properties and Properties.TextFont) or Enum.Font.SourceSans,
+			Name = randomString(), Text = Name, Font = (Properties and Properties.TextFont) or Enum.Font.SourceSans,
 			Position = UDim2.fromScale(0.5, 0.5), AnchorPoint = Vector2.new(0.5, 0.5)})
 end
 
