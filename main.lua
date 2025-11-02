@@ -73,7 +73,8 @@ local Players = Services.Players
 local Slib = {}
 
 function Slib.Init(Name:string, Location:Vector2, Properties: {[string]: any}?)
-	local Screen1 = Make("ScreenGui", CoreGUI, { Name = randomString(), Enabled = true, IgnoreGuiInset = true, ResetOnSpawn = false})
+	local Screen1 = Make("ScreenGui", CoreGUI, { Name = randomString(), Enabled = true, IgnoreGuiInset = true, ResetOnSpawn = false,
+	ZIndexBehavior = Enum.ZIndexBehavior.Sibling})
 	_G.Slib.GUI = Screen1
 	
 	local Frame1 = Make("CanvasGroup", Screen1, {
@@ -91,8 +92,16 @@ function Slib.Init(Name:string, Location:Vector2, Properties: {[string]: any}?)
 	local TopBar = Make("Frame", Frame1, {BackgroundColor3 = (Properties and Properties.TopColor) or Color3.fromRGB(105, 105, 105),
 		Name = randomString(), Size = UDim2.fromScale(1, 0.1), Position = UDim2.fromScale(0, 0)})
 	Make("TextLabel", TopBar, {BackgroundTransparency = 1, TextScaled = true, Size = UDim2.fromScale(0.9, 0.8),
-			Name = randomString(), Text = Name, Font = (Properties and Properties.TextFont) or Enum.Font.SourceSans,
-			Position = UDim2.fromScale(0.5, 0.5), AnchorPoint = Vector2.new(0.5, 0.5)})
+		Name = randomString(), Text = Name, Font = (Properties and Properties.TextFont) or Enum.Font.SourceSans,
+		Position = UDim2.fromScale(0.5, 0.5), AnchorPoint = Vector2.new(0.5, 0.5)})
+	
+	local funcs = {}
+	
+	funcs.ReturnScreen = function()
+		return Screen1
+	end
+	
+	return funcs
 end
 
 return Slib
