@@ -21,20 +21,20 @@ local delay = task.delay
 local function Make(class: string, parent: Instance?, properties: {[string]: any}?): Instance?
 	local success, result = pcall(function()
 		local newInstance = Instance.new(class)
-
+		
 		if parent then
 			newInstance.Parent = parent
 		end
-
+		
 		if properties then
 			for property, value in pairs(properties) do
 				newInstance[property] = value
 			end
 		end
-
+		
 		return newInstance
 	end)
-
+	
 	if not success then
 		warn("Make() failed:", result)
 		return nil
@@ -78,14 +78,10 @@ local Players = Services.Players
 local Slib = {}
 
 function Slib.Init(Name:string, Location:Vector2, Properties: {[string]: any}?)
-	local Screen1 = Make("ScreenGui", CoreGUI, {
-		Name = randomString(),
-		Enabled = true,
-		IgnoreGuiInset = true,
-		ResetOnSpawn = false})
+	local Screen1 = Make("ScreenGui", CoreGUI, { Name = randomString(), Enabled = true, IgnoreGuiInset = true, ResetOnSpawn = false})
 	_G.Slib.GUI = Screen1
 	
-	local Frame1 = Make("Frame", Screen1, {
+	local Frame1 = Make("CanvasGroup", Screen1, {
 		Position = UDim2.fromOffset(Location.X, Location.Y),
 		Name = randomString(),
 		Size = UDim2.fromScale(0.3, 0.6),
@@ -95,6 +91,15 @@ function Slib.Init(Name:string, Location:Vector2, Properties: {[string]: any}?)
 		CornerRadius = Properties and Properties.CornerRadius or UDim.new(0.1, 0)})
 	Make("UIAspectRatioConstraint", Frame1, {Name = randomString(),
 		AspectRatio = 0.75, AspectType = Enum.AspectType.FitWithinMaxSize, DominantAxis = Enum.DominantAxis.Width})
+	Make("UIStroke", Frame1, {Name = randomString(), Thickness = 3,
+		Color = (Properties and Properties.StrokeColor) or Color3.fromRGB(0, 0, 0),
+		ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual})
+	
+	local TopBar = Make("Frame", Frame1, {BackgroundColor3 = (Properties and Properties.TopColor) or Color3.fromRGB(105, 105, 105),
+		Name = randomString(), Size = UDim2.fromScale(1, 0.1), Position = UDim2.fromScale(0, 0)})
+	Make("TextLabel", TopBar, {BackgroundTransparency = 1, TextScaled = true, Size = UDim2.fromScale(0.9, 0.8),
+			Name = randomString(), Text = Name, FontFace = (Properties and Properties.TextFont) or Enum.Font.SourceSans,
+			Position = UDim2.fromScale(0.5, 0.5), AnchorPoint = Vector2.new(0.5, 0.5)})
 end
 
 return Slib
