@@ -83,7 +83,7 @@ function Slib.Init(Name:string, Location:Vector2, Properties: {[string]: any}?)
 	
 	local Frame1 = Make("CanvasGroup", Screen1, {
 		Position = UDim2.fromOffset(Location.X, Location.Y), Name = randomString(), Size = UDim2.fromScale(0.3, 0.6),
-		BackgroundColor3 = (Properties and Properties.BG) or Color3.fromRGB(72, 72, 72), ClipDescendaints = true
+		BackgroundColor3 = (Properties and Properties.BG) or Color3.fromRGB(72, 72, 72)
 	})
 	Make("UICorner", Frame1, {Name = randomString(),
 		CornerRadius = Properties and Properties.CornerRadius or UDim.new(0.1, 0)})
