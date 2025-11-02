@@ -4,15 +4,10 @@ if _G.Slib then
 	if _G.Slib.GUI then
 		_G.Slib.GUI:Destroy()
 	end
-	if _G.Slib.Script then
-		_G.Slib.Script:Destroy()
-	end
 	_G.Slib = nil
 end
 
-_G.Slib = {
-	Script = script
-}
+_G.Slib = {}
 
 local wait = task.wait
 local spawn = task.spawn
